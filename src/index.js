@@ -162,7 +162,75 @@ async function assembleTeam() {
         }
     }
 
-    
+    function htmlCards() {
+        let html = "";
+        for(var i = 0; i < staffArray.length; i++) {
+            html += `<div class="card bg-dark text-light justify-content-center align-items-center" style="width: 18rem;">
+            <div class="col card-header">
+                <h4>${staffArray[i].name}</h4>
+            </div>
+            <div class="col card-header">
+                <h4>${staffArray[i].getRole()}</h4 >
+            </div >
+            <ul class="list-group list-group-flush bg-info text-dark text">
+                <li class="list-group-item">ID: ${staffArray[i].id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${staffArray[i].email}">${staffArray[i].email}</a></li>
+                <li class="list-group-item"> ${employeeAdditions(staffArray[i])}</li>
+            </ul>
+        </div > `
+        }
+        return html;
+    }
+
+    let html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <title>Document</title>
+        <style>
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                }
+            .card {
+                padding: 15px;
+                border-radius: 6px;
+                margin: 15px;
+                }
+            .text {
+                padding: 15px;
+                border-radius: 6px;
+                margin: 15px;
+                }
+            .col {
+                flex: 1;
+                text-align: center;
+                }
+            </style>
+    </head>
+        <body>
+            <nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
+                <span class="navbar-brand mb-0 h1">
+                    <h1>My Team</h1>
+                </span>
+            </nav>
+            <div class="row">
+                ${htmlCards()}
+            </div>
+        </body>
+    </html>`
+
+    fs.writeFile("./dist/myteam.html", html, function(err) {
+        if(err) throw err;
+        console.log("Your file has been created successfully!");
+    });
 }
 
 assembleTeam();
