@@ -70,13 +70,99 @@ const engineerInquiry = () => {
 };
 
 //Confirm if there is another team member to add or not
-const addEmployee = () => {
+const addAnother = () => {
     return inquirer.prompt([
         {
             type: "confirm",
-            name: "addEmployee",
+            name: "addAnother",
             message: "Would you like to add more team members?"
         }
     ])
 }
 
+let staffArray = [];
+
+//Async function to get all the information , put it in the staff array, and display the inputted information on the page
+async function assembleTeam() {
+    const promise = new Promise((resolve, reject) => {
+        employeeInquiry()
+        .then(function({ name, id, email, role }) {
+
+            //Do this if the role is manager
+            if(role === "Manager") {
+                managerInquiry().then(function({ officeNumber }) {
+                    this.employee = new Manager(name, id, email, officeNumber, role);
+                    //Push to our staff array
+                    staffArray.push(employee);
+                    addAnother()
+                    //Run the function again from the beginning if add another is true
+                    .then(({ addAnother }) => {
+                        if(addAnother === true) {
+                            assembleTeam();
+                        } else {
+                            resolve("complete")
+                        }
+                    })
+                });
+
+            //Do this if the role is Engineer
+            } else if (role === "Engineer") {
+                engineerInquiry().then(function({ github }) {
+                    this.employee = new Engineer(name, id, email, github, role);
+                    //Push to our staff array
+                    staffArray.push(employee);
+                    addAnother()
+                    //Run the function again from the beginning if add another is true
+                    .then(({ addAnother }) => {
+                        if(addAnother === true) {
+                            assembleTeam();
+                        } else {
+                            resolve("complete");
+                        }
+                    })
+                });   
+            
+
+            } else if (role === "Intern") {
+                internInquiry().then(function({ school }) {
+                    this.employee = new Intern(name, id, email, school, role);
+                    //Push to our staff array
+                    staffArray.push(employee);
+                    addAnother()
+                    //Run the function again from the beginning if add another is true
+                    .then(({ addAnother }) => {
+                        if(addAnother === true) {
+                            assembleTeam();
+                        } else {
+                            resolve("complete")
+                        }
+                    })
+                });
+            }
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+    });
+
+    const result = await promise;
+
+    
+    function employeeAdditions(employee) {
+        if(employee.getRole() === "Manager") {
+            return `Office number: ${employee.officeNumber}`;
+        }
+
+        if(employee.getRole() === "Engineer") {
+            return `GitHub: <a href="https://github.com/${employee.github}" target="#">${employee.github}</a>`;
+        }
+
+        if(employee.getRole() === "Intern") {
+            return `School: ${employee.school}`;
+        }
+    }
+
+    
+}
+
+assembleTeam();
