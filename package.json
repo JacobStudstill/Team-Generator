@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/JacobStudstill/Team-Generator/issues"
   },
-  "homepage": "https://github.com/JacobStudstill/Team-Generator#readme",
+  "homepage": "https://github.com/JacobStudstill/Team-Generator/dist/myteam.html",
   "dependencies": {
     "inquirer": "^8.2.2"
   },
