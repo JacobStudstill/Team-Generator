@@ -165,14 +165,14 @@ async function assembleTeam() {
     function htmlCards() {
         let html = "";
         for(var i = 0; i < staffArray.length; i++) {
-            html += `<div class="card bg-dark text-light justify-content-center align-items-center" style="width: 18rem;">
+            html += `<div class="card bg-danger text-light justify-content-center align-items-center" style="width: 18rem;">
             <div class="col card-header">
                 <h4>${staffArray[i].name}</h4>
             </div>
             <div class="col card-header">
                 <h4>${staffArray[i].getRole()}</h4 >
             </div >
-            <ul class="list-group list-group-flush bg-info text-dark text">
+            <ul class="list-group list-group-flush bg-light text-dark text">
                 <li class="list-group-item">ID: ${staffArray[i].id}</li>
                 <li class="list-group-item">Email: <a href="mailto:${staffArray[i].email}">${staffArray[i].email}</a></li>
                 <li class="list-group-item"> ${employeeAdditions(staffArray[i])}</li>
@@ -195,8 +195,8 @@ async function assembleTeam() {
 
     </head>
         <body>
-            <nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
-                <span class="navbar-brand mb-0 h1">
+            <nav class="navbar navbar-dark bg-dark justify-content-center align-items-center">
+                <span class="navbar-brand text-light mb-0 h1">
                     <h1>My Team members</h1>
                 </span>
             </nav>
